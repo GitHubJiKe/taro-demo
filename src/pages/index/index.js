@@ -1,14 +1,27 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Text, Button } from '@tarojs/components'
-import './index.less'
+import Taro, { Component } from '@tarojs/taro';
+import { View, Text, Button } from '@tarojs/components';
+import './index.less';
+import { connect } from '@tarojs/redux';
+import { click, asyncClick } from '../../actions/click'
+
+
+@connect(({ click }) => ({
+  click
+}), (dispatch) => ({
+  _click() {
+    dispatch(click())
+  },
+  _asyncClick() {
+    dispatch(asyncClick())
+  }
+}))
+
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: 1
-    }
   }
+  
   config = {
     navigationBarTitleText: '首页'
   }
@@ -23,22 +36,12 @@ export default class Index extends Component {
 
   componentDidHide() { }
 
-  add = e => {
-    this.state.text++;
-    this.setState({});
-  }
-
-  reduce = e => {
-    this.state.text--;
-    this.setState({});
-  }
-
   render() {
     return (
       <View className='index'>
-        <Text className="hello">{this.state.text}</Text>
-        <Button onClick={this.add}>Add</Button>
-        <Button onClick={this.reduce}>Reduce</Button>
+        <Text className="hello">{this.props.click.num}</Text>
+        <Button onClick={this.props._click}>click</Button>
+        <Button onClick={this.props._asyncClick}>asyncClick</Button>
       </View>
     )
   }

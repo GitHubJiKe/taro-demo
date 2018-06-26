@@ -1,7 +1,10 @@
-import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
+import Taro, { Component } from '@tarojs/taro';
+import Index from './pages/index';
+import { Provider } from '@tarojs/redux';
+import './app.less';
+import configStore from './store';
 
-import './app.less'
+const store = configStore();
 
 class App extends Component {
   config = {
@@ -37,8 +40,10 @@ class App extends Component {
 
   render() {
     return (
-      <Index />
-    )
+      <Provider store={store}>
+        <Index />
+      </Provider>
+    );
   }
 }
 
