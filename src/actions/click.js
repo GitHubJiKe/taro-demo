@@ -1,5 +1,5 @@
 import { CLICK } from '../constants';
-
+import { showLoading } from './loading';
 export const click = () => {
   return { type: CLICK };
 }
@@ -7,8 +7,7 @@ export const click = () => {
 // 异步的action
 export function asyncClick() {
   return dispatch => {
-    setTimeout(() => {
-      dispatch(click());
-    }, 2000);
+    dispatch(showLoading());
+    setTimeout(() => dispatch(click()), 5000);
   }
 }

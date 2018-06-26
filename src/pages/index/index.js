@@ -20,8 +20,17 @@ import { click, asyncClick } from '../../actions/click'
 export default class Index extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      functionNames: [
+        'componentWillMount',
+        'componentDidMount',
+        'componentWillUnmount',
+        'componentDidShow',
+        'componentDidHide'
+      ]
+    };
   }
-  
+
   config = {
     navigationBarTitleText: '首页'
   }
@@ -42,6 +51,12 @@ export default class Index extends Component {
         <Text className="hello">{this.props.click.num}</Text>
         <Button onClick={this.props._click}>click</Button>
         <Button onClick={this.props._asyncClick}>asyncClick</Button>
+        <View style='margin-top:30px;background:brown;'>
+          <Text>生命周期方法：</Text>
+          {this.state.functionNames.map((t, idx) => {
+            return <Text key={idx} className="funName">{t}</Text>
+          })}
+        </View>
       </View>
     )
   }
